@@ -11,3 +11,6 @@ usage:
 ```
 python bsptomesh.py mapname.bsp
 ```
+
+paste content of output.txt into here [](https://playground.babylonjs.com/#XFYDUY)
+below *//paste output here:*
