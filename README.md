@@ -1,3 +1,6 @@
+forked from
+[(https://github.com/squeek502/bsp-to-mesh/blob/master/bsp-to-mesh.go)]
+
 
 temporal dl link for bsp file im trying to decompile:
 [surf_utopia](https://drive.google.com/file/d/1vSZ1zNV0Gr7xx1JgJTCxFnr-icaHIeSv/view?usp=drive_link)
