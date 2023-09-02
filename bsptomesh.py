@@ -20,6 +20,7 @@ def createMesh():
 
         #skip over triggers and skybox
         #need to skip over more materials to fix weird brushes/objects at origin??
+        #also, removing this skip causes even more formations to be created at the origin.
         if "TRIGGER" in materialName or "TOOLSSKYBOX" in materialName:
             continue
 
