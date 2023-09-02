@@ -21,4 +21,5 @@ below: *//paste output here:*
 
 bugs:
 weird object/brush formation at origin for some reason?
+
 ![dont allow sky and trigger](https://github.com/DukeVen/bsp2meshpy/assets/64648810/cb87363a-55b8-45fc-805c-938fcec65d71)
