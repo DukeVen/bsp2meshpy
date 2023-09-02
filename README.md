@@ -1,5 +1,5 @@
 forked from
-[(https://github.com/squeek502/bsp-to-mesh/blob/master/bsp-to-mesh.go)]
+https://github.com/squeek502/bsp-to-mesh/blob/master/bsp-to-mesh.go
 
 
 temporal dl link for bsp file im trying to decompile:
