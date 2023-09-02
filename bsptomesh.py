@@ -125,7 +125,7 @@ def WriteToBabylon(mesh):
     output_file.write('];\n')
     
 
-    output_file.write('vertexData.applyToMesh(mesh, false);\n')
+    output_file.write('vertexData.applyToMesh(mesh);\n')
 
 
 
