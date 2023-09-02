@@ -16,6 +16,8 @@ paste content of output.txt into here [BabylonJS Playground bsp to mesh](https:/
 
 below: *//paste output here:*
 
+and press start button
+
 
 ----
 
