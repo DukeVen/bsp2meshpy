@@ -12,7 +12,7 @@ usage:
 python bsptomesh.py mapname.bsp
 ```
 
-paste content of output.txt into here [BabylonJS Playground bsp to mesh](https://playground.babylonjs.com/#XFYDUY)
+paste content of output.txt into here [BabylonJS Playground bsp to mesh](https://playground.babylonjs.com/#XFYDUY#1)
 
 below: *//paste output here:*
 
