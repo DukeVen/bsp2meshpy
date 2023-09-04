@@ -10,29 +10,38 @@ class Mesh:
     
 
 def createMesh():
-    for idx, face in enumerate(bsp.FACES):
-        texinfo = bsp.TEXTURE_INFO[face.texture_info]
-        texdata = bsp.TEXTURE_DATA[texinfo.texture_data]
-        materialName = bsp.TEXTURE_DATA_STRING_DATA[texdata.name_index]
-
-        #if materialName.startswith("TOOLS/"):
-        #    continue
-
-        #skip over triggers and skybox
-        #need to skip over more materials to fix weird brushes/objects at origin??
-        #also, removing this skip causes even more formations to be created at the origin.
-        if "TRIGGER" in materialName or "TOOLSSKYBOX" in materialName:
-            continue
-
-        if face.displacement_info > -1:
-            #dont want to handle displacements
-            print("disp")
+    for model_index, model in enumerate(bsp.MODELS):
+        facegroup = bsp.FACES[model.first_face:model.first_face + model.num_faces]
+        entities_for_model = bsp.ENTITIES.search(model=f"*{model_index}")
+        if entities_for_model:
+            entity_origin = entities_for_model[0].get("origin", "0 0 0")
+            origin_x, origin_y, origin_z = map(float, entity_origin.split())
         else:
-            generateBspFace(face, idx)
+            origin_x, origin_y, origin_z = 0.0, 0.0, 0.0  # default origin if no entity found
+
+        
+        for idx, face in enumerate(facegroup):
+            texinfo = bsp.TEXTURE_INFO[face.texture_info]
+            texdata = bsp.TEXTURE_DATA[texinfo.texture_data]
+            materialName = bsp.TEXTURE_DATA_STRING_DATA[texdata.name_index]
+
+            #if materialName.startswith("TOOLS/"):
+            #    continue
+
+            #skip over triggers and skybox
+            #also, removing this skip causes even more formations to be created at the origin.
+            if "TRIGGER" in materialName or "TOOLSSKYBOX" in materialName:
+                continue
+
+            if face.displacement_info > -1:
+                #dont want to handle displacements
+                print("disp")
+            else:
+                generateBspFace(face, idx, origin_x, origin_y, origin_z)
 
 
 
-def generateBspFace(face, faceindex):
+def generateBspFace(face, faceindex, origin_x, origin_y, origin_z):
     planeNormal = bsp.PLANES[face.plane].normal
 
     #faceverts = bsp.vertices_of_face(faceindex) #gives me an error?
@@ -50,17 +59,17 @@ def generateBspFace(face, faceindex):
         if idx == 0:
             rootIndex = edge[e1]
         else:
-            vertex1 = (bsp.VERTICES[rootIndex].x, bsp.VERTICES[rootIndex].y, bsp.VERTICES[rootIndex].z)
+            vertex1 = (bsp.VERTICES[rootIndex].x + origin_x, bsp.VERTICES[rootIndex].y + origin_y, bsp.VERTICES[rootIndex].z + origin_z)
             AddVertex(vertex1)
             normal1 = (planeNormal.x, planeNormal.y, planeNormal.z)
             AddNormal(normal1)
 
-            vertex2 = (bsp.VERTICES[edge[e1]].x, bsp.VERTICES[edge[e1]].y, bsp.VERTICES[edge[e1]].z)
+            vertex2 = (bsp.VERTICES[edge[e1]].x + origin_x, bsp.VERTICES[edge[e1]].y + origin_y, bsp.VERTICES[edge[e1]].z + origin_z)
             AddVertex(vertex2)
             normal2 = (planeNormal.x, planeNormal.y, planeNormal.z)
             AddNormal(normal2)
 
-            vertex3 = (bsp.VERTICES[edge[e2]].x, bsp.VERTICES[edge[e2]].y, bsp.VERTICES[edge[e2]].z)
+            vertex3 = (bsp.VERTICES[edge[e2]].x + origin_x, bsp.VERTICES[edge[e2]].y + origin_y, bsp.VERTICES[edge[e2]].z + origin_z)
             AddVertex(vertex3)
             normal3 = (planeNormal.x, planeNormal.y, planeNormal.z)
             AddNormal(normal3)
@@ -145,10 +154,4 @@ if __name__ == "__main__":
         WriteToBabylon(bspmesh)
         
     print("Output has been written to output.txt")
-
-
-
-
-
-
 
